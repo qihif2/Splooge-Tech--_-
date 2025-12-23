@@ -1,0 +1,385 @@
+-- ======================
+-- CONFIG
+-- ======================
+local EnableFlingOnTouch = true
+local TOGGLE_KEY = Enum.KeyCode.F
+local UI_TOGGLE_KEY = Enum.KeyCode.RightShift
+ 
+local FlingOnTouchPower = 7
+local MIN_POWER = 1
+local MAX_POWER = 20
+ 
+local HeadSize = 2
+local MIN_HEAD = 1
+local MAX_HEAD = 6
+ 
+local HeadTransparency = 0
+local MIN_TRANS = 0
+local MAX_TRANS = 1
+ 
+local HeadSizeEnabled = true
+local HeadTransparencyEnabled = true
+ 
+-- ======================
+-- SERVICES
+-- ======================
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+ 
+-- ======================
+-- UI REFRESH HANDLERS
+-- ======================
+local refreshFlingUI
+local refreshTransparencyUI
+ 
+-- ======================
+-- INPUT
+-- ======================
+UserInputService.InputBegan:Connect(function(input, gp)
+    if gp then return end
+    if input.KeyCode == TOGGLE_KEY then
+        EnableFlingOnTouch = not EnableFlingOnTouch
+        if refreshFlingUI then refreshFlingUI() end
+    elseif input.KeyCode == UI_TOGGLE_KEY and _G.FlingUI then
+        _G.FlingUI.Enabled = not _G.FlingUI.Enabled
+    end
+end)
+ 
+-- ======================
+-- FLING FUNCTION
+-- ======================
+local function fling()
+    if not EnableFlingOnTouch then return end
+    HumanoidRootPart.Velocity =
+        HumanoidRootPart.CFrame.LookVector * FlingOnTouchPower * 50 +
+        Vector3.new(0, FlingOnTouchPower * 50, 0)
+end
+ 
+-- ======================
+-- FOOT → HEAD
+-- ======================
+local function isFoot(p)
+    return p.Name == "LeftFoot" or p.Name == "RightFoot"
+        or p.Name == "Left Leg" or p.Name == "Right Leg"
+end
+ 
+for _, part in ipairs(Character:GetChildren()) do
+    if part:IsA("BasePart") and isFoot(part) then
+        part.Touched:Connect(function(hit)
+            if EnableFlingOnTouch and hit and hit.Name == "Head" then
+                local plr = Players:GetPlayerFromCharacter(hit.Parent)
+                if plr and plr ~= LocalPlayer then
+                    fling()
+                end
+            end
+        end)
+    end
+end
+ 
+-- ======================
+-- HEAD MODS
+-- ======================
+local originalHeadData = {}
+ 
+local function applyHeadChanges()
+    for _, plr in ipairs(Players:GetPlayers()) do
+        if plr ~= LocalPlayer and plr.Character then
+            local head = plr.Character:FindFirstChild("Head")
+            if head then
+                if not originalHeadData[head] then
+                    originalHeadData[head] = {
+                        Size = head.Size,
+                        Transparency = head.Transparency
+                    }
+                end
+ 
+                -- Size (horizontal only)
+                if HeadSizeEnabled then
+                    head.Size = Vector3.new(
+                        HeadSize,
+                        originalHeadData[head].Size.Y,
+                        HeadSize
+                    )
+                else
+                    head.Size = originalHeadData[head].Size
+                end
+ 
+                -- Transparency
+                if HeadSizeEnabled and HeadTransparencyEnabled then
+                    head.Transparency = HeadTransparency
+                else
+                    head.Transparency = originalHeadData[head].Transparency
+                end
+ 
+                head.Massless = true
+            end
+        end
+    end
+end
+ 
+Players.PlayerAdded:Connect(function(p)
+    p.CharacterAdded:Connect(applyHeadChanges)
+end)
+ 
+-- ======================
+-- UI
+-- ======================
+local gui = Instance.new("ScreenGui", LocalPlayer.PlayerGui)
+gui.Name = "FlingUI"
+gui.ResetOnSpawn = false
+gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+_G.FlingUI = gui
+ 
+-- Shadow/Glow behind frame
+local shadowFrame = Instance.new("Frame", gui)
+shadowFrame.Size = UDim2.fromScale(0.15, 0.28) + UDim2.fromOffset(8,8)
+shadowFrame.AnchorPoint = Vector2.new(0.5,0.5)
+shadowFrame.Position = UDim2.fromScale(0.5, 0.5)
+shadowFrame.BackgroundColor3 = Color3.fromRGB(130,50,220)
+shadowFrame.BackgroundTransparency = 0.9
+shadowFrame.BorderSizePixel = 0
+Instance.new("UICorner", shadowFrame).CornerRadius = UDim.new(0,16)
+ 
+local pulseInfo = TweenInfo.new(1.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true)
+TweenService:Create(shadowFrame, pulseInfo, {BackgroundTransparency = 0.85}):Play()
+ 
+-- Main frame (black, draggable, smaller)
+local frame = Instance.new("Frame", gui)
+frame.Size = UDim2.fromScale(0.15, 0.28)
+frame.AnchorPoint = Vector2.new(0.5,0.5)
+frame.Position = UDim2.fromScale(0.5, 0.5)
+frame.BackgroundColor3 = Color3.fromRGB(25,25,30)
+frame.BackgroundTransparency = 0
+frame.BorderSizePixel = 0
+Instance.new("UICorner", frame).CornerRadius = UDim.new(0,16)
+frame.ZIndex = shadowFrame.ZIndex + 1
+ 
+-- Draggable
+local dragging = false
+local dragInput, mousePos, framePos
+ 
+local function update(input)
+    local delta = input.Position - mousePos
+    frame.Position = UDim2.new(
+        0, framePos.X + delta.X,
+        0, framePos.Y + delta.Y
+    )
+end
+ 
+frame.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        dragging = true
+        mousePos = input.Position
+        framePos = frame.Position
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                dragging = false
+            end
+        end)
+    end
+end)
+ 
+frame.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement then
+        dragInput = input
+    end
+end)
+ 
+UserInputService.InputChanged:Connect(function(input)
+    if input == dragInput and dragging then
+        update(input)
+    end
+end)
+ 
+-- Shadow stroke
+local shadow = Instance.new("UIStroke", frame)
+shadow.Color = Color3.fromRGB(0,0,0)
+shadow.Thickness = 2
+shadow.Transparency = 0.5
+ 
+-- Label creator
+local function createLabel(text, y)
+    local lbl = Instance.new("TextLabel", frame)
+    lbl.Position = UDim2.fromScale(0.05, y)
+    lbl.Size = UDim2.fromScale(0.9, 0.05)
+    lbl.Text = text
+    lbl.TextScaled = true
+    lbl.Font = Enum.Font.GothamBold
+    lbl.TextColor3 = Color3.fromRGB(230,220,255)
+    lbl.BackgroundTransparency = 1
+    return lbl
+end
+ 
+-- Slider creator
+local function createSlider(y, min, max, getSet)
+    local back = Instance.new("Frame", frame)
+    back.Position = UDim2.fromScale(0.08, y)
+    back.Size = UDim2.fromScale(0.84, 0.045)
+    back.BackgroundColor3 = Color3.fromRGB(40,40,50)
+    back.BorderSizePixel = 0
+    Instance.new("UICorner", back).CornerRadius = UDim.new(1,0)
+ 
+    local fill = Instance.new("Frame", back)
+    fill.BackgroundColor3 = Color3.fromRGB(180,80,255)
+    fill.BorderSizePixel = 0
+    Instance.new("UICorner", fill).CornerRadius = UDim.new(1,0)
+ 
+    local handle = Instance.new("Frame", back)
+    handle.Size = UDim2.fromScale(0.04,1)
+    handle.AnchorPoint = Vector2.new(0.5,0)
+    handle.BackgroundColor3 = Color3.fromRGB(230,220,255)
+    handle.BorderSizePixel = 0
+    Instance.new("UICorner", handle).CornerRadius = UDim.new(1,0)
+ 
+    local valueLbl = Instance.new("TextLabel", frame)
+    valueLbl.Position = UDim2.fromScale(0.88, y-0.005)
+    valueLbl.Size = UDim2.fromScale(0.12,0.045)
+    valueLbl.Text = tostring(getSet())
+    valueLbl.Font = Enum.Font.Gotham
+    valueLbl.TextColor3 = Color3.fromRGB(230,220,255)
+    valueLbl.BackgroundTransparency = 1
+    valueLbl.TextScaled = true
+ 
+    local dragging = false
+    local tweenInfo = TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+    local function updateSlider(x)
+        local p = math.clamp((x-back.AbsolutePosition.X)/back.AbsoluteSize.X,0,1)
+        local targetSize = UDim2.fromScale(p,1)
+        TweenService:Create(fill, tweenInfo, {Size = targetSize}):Play()
+        TweenService:Create(handle, tweenInfo, {Position = UDim2.fromScale(p,0)}):Play()
+        getSet(min + (max-min)*p)
+        valueLbl.Text = string.format("%.2f", getSet())
+    end
+ 
+    back.InputBegan:Connect(function(i)
+        if i.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = true
+            updateSlider(i.Position.X)
+        end
+    end)
+    UserInputService.InputChanged:Connect(function(i)
+        if dragging and i.UserInputType == Enum.UserInputType.MouseMovement then
+            updateSlider(i.Position.X)
+        end
+    end)
+    UserInputService.InputEnded:Connect(function(i)
+        if i.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = false
+        end
+    end)
+ 
+    fill.Size = UDim2.fromScale((getSet()-min)/(max-min),1)
+    handle.Position = UDim2.fromScale((getSet()-min)/(max-min),0)
+end
+ 
+-- ======================
+-- Fling Button
+-- ======================
+local flingBtn = Instance.new("TextButton", frame)
+flingBtn.Position = UDim2.fromScale(0.12, 0.02)
+flingBtn.Size = UDim2.fromScale(0.76,0.06)
+flingBtn.Font = Enum.Font.GothamBold
+flingBtn.TextScaled = true
+flingBtn.TextColor3 = Color3.fromRGB(230,220,255)
+flingBtn.BorderSizePixel = 0
+Instance.new("UICorner", flingBtn).CornerRadius = UDim.new(0,12)
+ 
+local hoverTweenInfo = TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+flingBtn.MouseEnter:Connect(function()
+    TweenService:Create(flingBtn, hoverTweenInfo, {BackgroundTransparency = 0.05}):Play()
+end)
+flingBtn.MouseLeave:Connect(function()
+    TweenService:Create(flingBtn, hoverTweenInfo, {BackgroundTransparency = 0}):Play()
+end)
+ 
+refreshFlingUI = function()
+    flingBtn.Text = "Fling: " .. (EnableFlingOnTouch and "ON" or "OFF")
+    flingBtn.BackgroundColor3 = EnableFlingOnTouch and Color3.fromRGB(130,50,220) or Color3.fromRGB(90,0,120)
+end
+flingBtn.MouseButton1Click:Connect(function()
+    EnableFlingOnTouch = not EnableFlingOnTouch
+    refreshFlingUI()
+end)
+refreshFlingUI()
+ 
+-- ======================
+-- Sliders
+-- ======================
+createLabel("Fling Power",0.1)
+createSlider(0.16,MIN_POWER,MAX_POWER,function(v)
+    if v then FlingOnTouchPower = math.floor(v) end
+    return FlingOnTouchPower
+end)
+ 
+createLabel("Head Width",0.28)
+createSlider(0.34,MIN_HEAD,MAX_HEAD,function(v)
+    if v then HeadSize = math.floor(v*10)/10 applyHeadChanges() end
+    return HeadSize
+end)
+ 
+createLabel("Head Transparency",0.46)
+createSlider(0.52,MIN_TRANS,MAX_TRANS,function(v)
+    if v then HeadTransparency = math.floor(v*100)/100 applyHeadChanges() end
+    return HeadTransparency
+end)
+ 
+-- ======================
+-- Toggles
+-- ======================
+local function createToggle(text,y,getSet)
+    local btn = Instance.new("TextButton", frame)
+    btn.Position = UDim2.fromScale(0.12,y)
+    btn.Size = UDim2.fromScale(0.76,0.055)
+    btn.Font = Enum.Font.GothamBold
+    btn.TextScaled = true
+    btn.TextColor3 = Color3.fromRGB(230,220,255)
+    btn.BorderSizePixel = 0
+    Instance.new("UICorner", btn).CornerRadius = UDim.new(0,12)
+ 
+    btn.MouseEnter:Connect(function()
+        TweenService:Create(btn, hoverTweenInfo, {BackgroundTransparency = 0.05}):Play()
+    end)
+    btn.MouseLeave:Connect(function()
+        TweenService:Create(btn, hoverTweenInfo, {BackgroundTransparency = 0}):Play()
+    end)
+ 
+    local function refresh()
+        local on = getSet()
+        btn.Text = text..": "..(on and "ON" or "OFF")
+        btn.BackgroundColor3 = on and Color3.fromRGB(130,50,220) or Color3.fromRGB(90,0,120)
+    end
+ 
+    btn.MouseButton1Click:Connect(function()
+        getSet(true)
+        refresh()
+        applyHeadChanges()
+    end)
+ 
+    refresh()
+    return refresh
+end
+ 
+refreshTransparencyUI = createToggle("Head Size",0.64,function(t)
+    if t then
+        HeadSizeEnabled = not HeadSizeEnabled
+        if not HeadSizeEnabled then HeadTransparencyEnabled = false end
+    end
+    return HeadSizeEnabled
+end)
+ 
+createToggle("Transparency",0.72,function(t)
+    if t and HeadSizeEnabled then HeadTransparencyEnabled = not HeadTransparencyEnabled end
+    return HeadTransparencyEnabled
+end)
+ 
+-- ======================
+-- Labels
+-- ======================
+createLabel("F = Toggle | RightShift = Menu",0.8)
+createLabel("Made by splooge",0.85)
+ 
+applyHeadChanges()
