@@ -1,385 +1,297 @@
--- ======================
--- CONFIG
--- ======================
-local EnableFlingOnTouch = true
-local TOGGLE_KEY = Enum.KeyCode.F
-local UI_TOGGLE_KEY = Enum.KeyCode.RightShift
+do
+local a=true
+local b=Enum.KeyCode.F
+local c=Enum.KeyCode.RightShift
+local d=7
+local e,f=1,20
+local g=2
+local h,i=1,6
+local j=0
+local k,l=0,1
+local m=true
+local n=true
  
-local FlingOnTouchPower = 7
-local MIN_POWER = 1
-local MAX_POWER = 20
+local o=game:GetService("Players")
+local p=o.LocalPlayer
+local q=p.Character or p.CharacterAdded:Wait()
+local r=q:WaitForChild("HumanoidRootPart")
+local s=game:GetService("UserInputService")
+local t=game:GetService("TweenService")
  
-local HeadSize = 2
-local MIN_HEAD = 1
-local MAX_HEAD = 6
+local u,v
  
-local HeadTransparency = 0
-local MIN_TRANS = 0
-local MAX_TRANS = 1
- 
-local HeadSizeEnabled = true
-local HeadTransparencyEnabled = true
- 
--- ======================
--- SERVICES
--- ======================
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
-local HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
-local UserInputService = game:GetService("UserInputService")
-local TweenService = game:GetService("TweenService")
- 
--- ======================
--- UI REFRESH HANDLERS
--- ======================
-local refreshFlingUI
-local refreshTransparencyUI
- 
--- ======================
--- INPUT
--- ======================
-UserInputService.InputBegan:Connect(function(input, gp)
-    if gp then return end
-    if input.KeyCode == TOGGLE_KEY then
-        EnableFlingOnTouch = not EnableFlingOnTouch
-        if refreshFlingUI then refreshFlingUI() end
-    elseif input.KeyCode == UI_TOGGLE_KEY and _G.FlingUI then
-        _G.FlingUI.Enabled = not _G.FlingUI.Enabled
-    end
+s.InputBegan:Connect(function(x,y)
+ if y then return end
+ if x.KeyCode==b then
+  a=not a
+  if u then u() end
+ elseif x.KeyCode==c and _G.FlingUI then
+  _G.FlingUI.Enabled=not _G.FlingUI.Enabled
+ end
 end)
  
--- ======================
--- FLING FUNCTION
--- ======================
-local function fling()
-    if not EnableFlingOnTouch then return end
-    HumanoidRootPart.Velocity =
-        HumanoidRootPart.CFrame.LookVector * FlingOnTouchPower * 50 +
-        Vector3.new(0, FlingOnTouchPower * 50, 0)
+local function w()
+ if not a then return end
+ r.Velocity=r.CFrame.LookVector*d*50+Vector3.new(0,d*50,0)
 end
  
--- ======================
--- FOOT → HEAD
--- ======================
-local function isFoot(p)
-    return p.Name == "LeftFoot" or p.Name == "RightFoot"
-        or p.Name == "Left Leg" or p.Name == "Right Leg"
+local function x(y)
+ return y.Name=="LeftFoot" or y.Name=="RightFoot" or y.Name=="Left Leg" or y.Name=="Right Leg"
 end
  
-for _, part in ipairs(Character:GetChildren()) do
-    if part:IsA("BasePart") and isFoot(part) then
-        part.Touched:Connect(function(hit)
-            if EnableFlingOnTouch and hit and hit.Name == "Head" then
-                local plr = Players:GetPlayerFromCharacter(hit.Parent)
-                if plr and plr ~= LocalPlayer then
-                    fling()
-                end
-            end
-        end)
+for _,y in ipairs(q:GetChildren()) do
+ if y:IsA("BasePart") and x(y) then
+  y.Touched:Connect(function(z)
+   if a and z and z.Name=="Head" then
+    local A=o:GetPlayerFromCharacter(z.Parent)
+    if A and A~=p then
+     w()
     end
+   end
+  end)
+ end
 end
  
--- ======================
--- HEAD MODS
--- ======================
-local originalHeadData = {}
+local B={}
  
-local function applyHeadChanges()
-    for _, plr in ipairs(Players:GetPlayers()) do
-        if plr ~= LocalPlayer and plr.Character then
-            local head = plr.Character:FindFirstChild("Head")
-            if head then
-                if not originalHeadData[head] then
-                    originalHeadData[head] = {
-                        Size = head.Size,
-                        Transparency = head.Transparency
-                    }
-                end
- 
-                -- Size (horizontal only)
-                if HeadSizeEnabled then
-                    head.Size = Vector3.new(
-                        HeadSize,
-                        originalHeadData[head].Size.Y,
-                        HeadSize
-                    )
-                else
-                    head.Size = originalHeadData[head].Size
-                end
- 
-                -- Transparency
-                if HeadSizeEnabled and HeadTransparencyEnabled then
-                    head.Transparency = HeadTransparency
-                else
-                    head.Transparency = originalHeadData[head].Transparency
-                end
- 
-                head.Massless = true
-            end
-        end
+local function C()
+ for _,D in ipairs(o:GetPlayers()) do
+  if D~=p and D.Character then
+   local E=D.Character:FindFirstChild("Head")
+   if E then
+    if not B[E] then
+     B[E]={Size=E.Size,Transparency=E.Transparency}
     end
+    if m then
+     E.Size=Vector3.new(g,B[E].Size.Y,g)
+    else
+     E.Size=B[E].Size
+    end
+    if m and n then
+     E.Transparency=j
+    else
+     E.Transparency=B[E].Transparency
+    end
+    E.Massless=true
+   end
+  end
+ end
 end
  
-Players.PlayerAdded:Connect(function(p)
-    p.CharacterAdded:Connect(applyHeadChanges)
+o.PlayerAdded:Connect(function(F)
+ F.CharacterAdded:Connect(C)
 end)
  
--- ======================
--- UI
--- ======================
-local gui = Instance.new("ScreenGui", LocalPlayer.PlayerGui)
-gui.Name = "FlingUI"
-gui.ResetOnSpawn = false
-gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-_G.FlingUI = gui
+local G=Instance.new("ScreenGui",p.PlayerGui)
+G.Name="FlingUI"
+G.ResetOnSpawn=false
+G.ZIndexBehavior=Enum.ZIndexBehavior.Sibling
+_G.FlingUI=G
  
--- Shadow/Glow behind frame
-local shadowFrame = Instance.new("Frame", gui)
-shadowFrame.Size = UDim2.fromScale(0.15, 0.28) + UDim2.fromOffset(8,8)
-shadowFrame.AnchorPoint = Vector2.new(0.5,0.5)
-shadowFrame.Position = UDim2.fromScale(0.5, 0.5)
-shadowFrame.BackgroundColor3 = Color3.fromRGB(130,50,220)
-shadowFrame.BackgroundTransparency = 0.9
-shadowFrame.BorderSizePixel = 0
-Instance.new("UICorner", shadowFrame).CornerRadius = UDim.new(0,16)
+local H=Instance.new("Frame",G)
+H.Size=UDim2.fromScale(.15,.28)+UDim2.fromOffset(8,8)
+H.AnchorPoint=Vector2.new(.5,.5)
+H.Position=UDim2.fromScale(.5,.5)
+H.BackgroundColor3=Color3.fromRGB(130,50,220)
+H.BackgroundTransparency=.85
+H.BorderSizePixel=0
+Instance.new("UICorner",H).CornerRadius=UDim.new(0,16)
+t:Create(H,TweenInfo.new(1.5,Enum.EasingStyle.Sine,Enum.EasingDirection.InOut,-1,true),{BackgroundTransparency=.8}):Play()
  
-local pulseInfo = TweenInfo.new(1.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true)
-TweenService:Create(shadowFrame, pulseInfo, {BackgroundTransparency = 0.85}):Play()
+local I=Instance.new("Frame",G)
+I.Size=UDim2.fromScale(.15,.28)
+I.AnchorPoint=Vector2.new(.5,.5)
+I.Position=UDim2.fromScale(.5,.5)
+I.BackgroundColor3=Color3.fromRGB(25,25,30)
+I.BorderSizePixel=0
+Instance.new("UICorner",I).CornerRadius=UDim.new(0,16)
+I.ZIndex=H.ZIndex+1
  
--- Main frame (black, draggable, smaller)
-local frame = Instance.new("Frame", gui)
-frame.Size = UDim2.fromScale(0.15, 0.28)
-frame.AnchorPoint = Vector2.new(0.5,0.5)
-frame.Position = UDim2.fromScale(0.5, 0.5)
-frame.BackgroundColor3 = Color3.fromRGB(25,25,30)
-frame.BackgroundTransparency = 0
-frame.BorderSizePixel = 0
-Instance.new("UICorner", frame).CornerRadius = UDim.new(0,16)
-frame.ZIndex = shadowFrame.ZIndex + 1
+local J=false
+local K,L,M
  
--- Draggable
-local dragging = false
-local dragInput, mousePos, framePos
- 
-local function update(input)
-    local delta = input.Position - mousePos
-    frame.Position = UDim2.new(
-        0, framePos.X + delta.X,
-        0, framePos.Y + delta.Y
-    )
+local function N(O)
+ local P=O.Position-L
+ I.Position=UDim2.new(0,M.X+P.X,0,M.Y+P.Y)
 end
  
-frame.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 then
-        dragging = true
-        mousePos = input.Position
-        framePos = frame.Position
-        input.Changed:Connect(function()
-            if input.UserInputState == Enum.UserInputState.End then
-                dragging = false
-            end
-        end)
-    end
+I.InputBegan:Connect(function(O)
+ if O.UserInputType==Enum.UserInputType.MouseButton1 then
+  J=true
+  L=O.Position
+  M=I.Position
+  O.Changed:Connect(function()
+   if O.UserInputState==Enum.UserInputState.End then
+    J=false
+   end
+  end)
+ end
 end)
  
-frame.InputChanged:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseMovement then
-        dragInput = input
-    end
+I.InputChanged:Connect(function(O)
+ if O.UserInputType==Enum.UserInputType.MouseMovement then
+  K=O
+ end
 end)
  
-UserInputService.InputChanged:Connect(function(input)
-    if input == dragInput and dragging then
-        update(input)
-    end
+s.InputChanged:Connect(function(O)
+ if O==K and J then
+  N(O)
+ end
 end)
  
--- Shadow stroke
-local shadow = Instance.new("UIStroke", frame)
-shadow.Color = Color3.fromRGB(0,0,0)
-shadow.Thickness = 2
-shadow.Transparency = 0.5
+local Q=Instance.new("UIStroke",I)
+Q.Color=Color3.fromRGB(0,0,0)
+Q.Thickness=2
+Q.Transparency=.5
  
--- Label creator
-local function createLabel(text, y)
-    local lbl = Instance.new("TextLabel", frame)
-    lbl.Position = UDim2.fromScale(0.05, y)
-    lbl.Size = UDim2.fromScale(0.9, 0.05)
-    lbl.Text = text
-    lbl.TextScaled = true
-    lbl.Font = Enum.Font.GothamBold
-    lbl.TextColor3 = Color3.fromRGB(230,220,255)
-    lbl.BackgroundTransparency = 1
-    return lbl
+local function R(S,T)
+ local U=Instance.new("TextLabel",I)
+ U.Position=UDim2.fromScale(.05,T)
+ U.Size=UDim2.fromScale(.9,.05)
+ U.Text=S
+ U.TextScaled=true
+ U.Font=Enum.Font.GothamBold
+ U.TextColor3=Color3.fromRGB(230,220,255)
+ U.BackgroundTransparency=1
+ return U
 end
  
--- Slider creator
-local function createSlider(y, min, max, getSet)
-    local back = Instance.new("Frame", frame)
-    back.Position = UDim2.fromScale(0.08, y)
-    back.Size = UDim2.fromScale(0.84, 0.045)
-    back.BackgroundColor3 = Color3.fromRGB(40,40,50)
-    back.BorderSizePixel = 0
-    Instance.new("UICorner", back).CornerRadius = UDim.new(1,0)
+local function V(T,W,X,Y)
+ local Z=Instance.new("Frame",I)
+ Z.Position=UDim2.fromScale(.08,T)
+ Z.Size=UDim2.fromScale(.84,.045)
+ Z.BackgroundColor3=Color3.fromRGB(40,40,50)
+ Z.BorderSizePixel=0
+ Instance.new("UICorner",Z).CornerRadius=UDim.new(1,0)
  
-    local fill = Instance.new("Frame", back)
-    fill.BackgroundColor3 = Color3.fromRGB(180,80,255)
-    fill.BorderSizePixel = 0
-    Instance.new("UICorner", fill).CornerRadius = UDim.new(1,0)
+ local a0=Instance.new("Frame",Z)
+ a0.BackgroundColor3=Color3.fromRGB(180,80,255)
+ a0.BorderSizePixel=0
+ Instance.new("UICorner",a0).CornerRadius=UDim.new(1,0)
  
-    local handle = Instance.new("Frame", back)
-    handle.Size = UDim2.fromScale(0.04,1)
-    handle.AnchorPoint = Vector2.new(0.5,0)
-    handle.BackgroundColor3 = Color3.fromRGB(230,220,255)
-    handle.BorderSizePixel = 0
-    Instance.new("UICorner", handle).CornerRadius = UDim.new(1,0)
+ local a1=Instance.new("Frame",Z)
+ a1.Size=UDim2.fromScale(.04,1)
+ a1.AnchorPoint=Vector2.new(.5,0)
+ a1.BackgroundColor3=Color3.fromRGB(230,220,255)
+ a1.BorderSizePixel=0
+ Instance.new("UICorner",a1).CornerRadius=UDim.new(1,0)
  
-    local valueLbl = Instance.new("TextLabel", frame)
-    valueLbl.Position = UDim2.fromScale(0.88, y-0.005)
-    valueLbl.Size = UDim2.fromScale(0.12,0.045)
-    valueLbl.Text = tostring(getSet())
-    valueLbl.Font = Enum.Font.Gotham
-    valueLbl.TextColor3 = Color3.fromRGB(230,220,255)
-    valueLbl.BackgroundTransparency = 1
-    valueLbl.TextScaled = true
+ local a2=Instance.new("TextLabel",I)
+ a2.Position=UDim2.fromScale(.88,T-.005)
+ a2.Size=UDim2.fromScale(.12,.045)
+ a2.Font=Enum.Font.Gotham
+ a2.TextColor3=Color3.fromRGB(230,220,255)
+ a2.BackgroundTransparency=1
+ a2.TextScaled=true
  
-    local dragging = false
-    local tweenInfo = TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
-    local function updateSlider(x)
-        local p = math.clamp((x-back.AbsolutePosition.X)/back.AbsoluteSize.X,0,1)
-        local targetSize = UDim2.fromScale(p,1)
-        TweenService:Create(fill, tweenInfo, {Size = targetSize}):Play()
-        TweenService:Create(handle, tweenInfo, {Position = UDim2.fromScale(p,0)}):Play()
-        getSet(min + (max-min)*p)
-        valueLbl.Text = string.format("%.2f", getSet())
-    end
+ local a3=false
+ local a4=TweenInfo.new(.15,Enum.EasingStyle.Quad,Enum.EasingDirection.Out)
  
-    back.InputBegan:Connect(function(i)
-        if i.UserInputType == Enum.UserInputType.MouseButton1 then
-            dragging = true
-            updateSlider(i.Position.X)
-        end
-    end)
-    UserInputService.InputChanged:Connect(function(i)
-        if dragging and i.UserInputType == Enum.UserInputType.MouseMovement then
-            updateSlider(i.Position.X)
-        end
-    end)
-    UserInputService.InputEnded:Connect(function(i)
-        if i.UserInputType == Enum.UserInputType.MouseButton1 then
-            dragging = false
-        end
-    end)
+ local function a5(a6)
+  local a7=math.clamp((a6-Z.AbsolutePosition.X)/Z.AbsoluteSize.X,0,1)
+  t:Create(a0,a4,{Size=UDim2.fromScale(a7,1)}):Play()
+  t:Create(a1,a4,{Position=UDim2.fromScale(a7,0)}):Play()
+  Y(W+(X-W)*a7)
+  a2.Text=string.format("%.2f",Y())
+ end
  
-    fill.Size = UDim2.fromScale((getSet()-min)/(max-min),1)
-    handle.Position = UDim2.fromScale((getSet()-min)/(max-min),0)
+ Z.InputBegan:Connect(function(a6)
+  if a6.UserInputType==Enum.UserInputType.MouseButton1 then
+   a3=true
+   a5(a6.Position.X)
+  end
+ end)
+ 
+ s.InputChanged:Connect(function(a6)
+  if a3 and a6.UserInputType==Enum.UserInputType.MouseMovement then
+   a5(a6.Position.X)
+  end
+ end)
+ 
+ s.InputEnded:Connect(function(a6)
+  if a6.UserInputType==Enum.UserInputType.MouseButton1 then
+   a3=false
+  end
+ end)
+ 
+ a0.Size=UDim2.fromScale((Y()-W)/(X-W),1)
+ a1.Position=UDim2.fromScale((Y()-W)/(X-W),0)
 end
  
--- ======================
--- Fling Button
--- ======================
-local flingBtn = Instance.new("TextButton", frame)
-flingBtn.Position = UDim2.fromScale(0.12, 0.02)
-flingBtn.Size = UDim2.fromScale(0.76,0.06)
-flingBtn.Font = Enum.Font.GothamBold
-flingBtn.TextScaled = true
-flingBtn.TextColor3 = Color3.fromRGB(230,220,255)
-flingBtn.BorderSizePixel = 0
-Instance.new("UICorner", flingBtn).CornerRadius = UDim.new(0,12)
+local a8=Instance.new("TextButton",I)
+a8.Position=UDim2.fromScale(.12,.02)
+a8.Size=UDim2.fromScale(.76,.06)
+a8.Font=Enum.Font.GothamBold
+a8.TextScaled=true
+a8.TextColor3=Color3.fromRGB(230,220,255)
+a8.BorderSizePixel=0
+Instance.new("UICorner",a8).CornerRadius=UDim.new(0,12)
  
-local hoverTweenInfo = TweenInfo.new(0.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
-flingBtn.MouseEnter:Connect(function()
-    TweenService:Create(flingBtn, hoverTweenInfo, {BackgroundTransparency = 0.05}):Play()
-end)
-flingBtn.MouseLeave:Connect(function()
-    TweenService:Create(flingBtn, hoverTweenInfo, {BackgroundTransparency = 0}):Play()
-end)
+local a9=TweenInfo.new(.15,Enum.EasingStyle.Quad,Enum.EasingDirection.Out)
  
-refreshFlingUI = function()
-    flingBtn.Text = "Fling: " .. (EnableFlingOnTouch and "ON" or "OFF")
-    flingBtn.BackgroundColor3 = EnableFlingOnTouch and Color3.fromRGB(130,50,220) or Color3.fromRGB(90,0,120)
-end
-flingBtn.MouseButton1Click:Connect(function()
-    EnableFlingOnTouch = not EnableFlingOnTouch
-    refreshFlingUI()
-end)
-refreshFlingUI()
- 
--- ======================
--- Sliders
--- ======================
-createLabel("Fling Power",0.1)
-createSlider(0.16,MIN_POWER,MAX_POWER,function(v)
-    if v then FlingOnTouchPower = math.floor(v) end
-    return FlingOnTouchPower
-end)
- 
-createLabel("Head Width",0.28)
-createSlider(0.34,MIN_HEAD,MAX_HEAD,function(v)
-    if v then HeadSize = math.floor(v*10)/10 applyHeadChanges() end
-    return HeadSize
-end)
- 
-createLabel("Head Transparency",0.46)
-createSlider(0.52,MIN_TRANS,MAX_TRANS,function(v)
-    if v then HeadTransparency = math.floor(v*100)/100 applyHeadChanges() end
-    return HeadTransparency
-end)
- 
--- ======================
--- Toggles
--- ======================
-local function createToggle(text,y,getSet)
-    local btn = Instance.new("TextButton", frame)
-    btn.Position = UDim2.fromScale(0.12,y)
-    btn.Size = UDim2.fromScale(0.76,0.055)
-    btn.Font = Enum.Font.GothamBold
-    btn.TextScaled = true
-    btn.TextColor3 = Color3.fromRGB(230,220,255)
-    btn.BorderSizePixel = 0
-    Instance.new("UICorner", btn).CornerRadius = UDim.new(0,12)
- 
-    btn.MouseEnter:Connect(function()
-        TweenService:Create(btn, hoverTweenInfo, {BackgroundTransparency = 0.05}):Play()
-    end)
-    btn.MouseLeave:Connect(function()
-        TweenService:Create(btn, hoverTweenInfo, {BackgroundTransparency = 0}):Play()
-    end)
- 
-    local function refresh()
-        local on = getSet()
-        btn.Text = text..": "..(on and "ON" or "OFF")
-        btn.BackgroundColor3 = on and Color3.fromRGB(130,50,220) or Color3.fromRGB(90,0,120)
-    end
- 
-    btn.MouseButton1Click:Connect(function()
-        getSet(true)
-        refresh()
-        applyHeadChanges()
-    end)
- 
-    refresh()
-    return refresh
+u=function()
+ a8.Text="Fling: "..(a and "ON" or "OFF")
+ a8.BackgroundColor3=a and Color3.fromRGB(130,50,220) or Color3.fromRGB(90,0,120)
 end
  
-refreshTransparencyUI = createToggle("Head Size",0.64,function(t)
-    if t then
-        HeadSizeEnabled = not HeadSizeEnabled
-        if not HeadSizeEnabled then HeadTransparencyEnabled = false end
-    end
-    return HeadSizeEnabled
+a8.MouseButton1Click:Connect(function()
+ a=not a
+ u()
 end)
  
-createToggle("Transparency",0.72,function(t)
-    if t and HeadSizeEnabled then HeadTransparencyEnabled = not HeadTransparencyEnabled end
-    return HeadTransparencyEnabled
+u()
+ 
+R("Fling Power",.1)
+V(.16,e,f,function(v) if v then d=math.floor(v) end return d end)
+ 
+R("Head Width",.28)
+V(.34,h,i,function(v) if v then g=math.floor(v*10)/10 C() end return g end)
+ 
+R("Head Transparency",.46)
+V(.52,k,l,function(v) if v then j=math.floor(v*100)/100 C() end return j end)
+ 
+local function b0(S,T,Y)
+ local b1=Instance.new("TextButton",I)
+ b1.Position=UDim2.fromScale(.12,T)
+ b1.Size=UDim2.fromScale(.76,.055)
+ b1.Font=Enum.Font.GothamBold
+ b1.TextScaled=true
+ b1.TextColor3=Color3.fromRGB(230,220,255)
+ b1.BorderSizePixel=0
+ Instance.new("UICorner",b1).CornerRadius=UDim.new(0,12)
+ 
+ local function b2()
+  local b3=Y()
+  b1.Text=S..": "..(b3 and "ON" or "OFF")
+  b1.BackgroundColor3=b3 and Color3.fromRGB(130,50,220) or Color3.fromRGB(90,0,120)
+ end
+ 
+ b1.MouseButton1Click:Connect(function()
+  Y(true)
+  b2()
+  C()
+ end)
+ 
+ b2()
+ return b2
+end
+ 
+v=b0("Head Size",.64,function(z)
+ if z then
+  m=not m
+  if not m then n=false end
+ end
+ return m
 end)
  
--- ======================
--- Labels
--- ======================
-createLabel("F = Toggle | RightShift = Menu",0.8)
-createLabel("Made by splooge",0.85)
+b0("Transparency",.72,function(z)
+ if z and m then n=not n end
+ return n
+end)
  
-applyHeadChanges()
+R("F = Toggle | RightShift = Menu",.8)
+R("Made by splooge",.85)
+ 
+C()
+end
