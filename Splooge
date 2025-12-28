@@ -1,1 +1,560 @@
-local _0x1a2b3c={["\107\101\121\49"]=Enum.KeyCode.F,["\107\101\121\50"]=Enum.KeyCode.RightShift,["\112\119\114"]=7,["\109\110\112"]=1,["\109\120\112"]=20,["\104\115\122"]=2,["\109\110\104"]=1,["\109\120\104"]=6,["\104\116\114"]=0,["\109\110\116"]=0,["\109\120\116"]=1,["\101\110\98"]=true,["\104\115\101"]=true,["\104\116\101"]=true}local _0x4d5e6f=game:GetService("\80\108\97\121\101\114\115")local _0x7g8h9i=_0x4d5e6f.LocalPlayer;local _0xabcdef=_0x7g8h9i.Character or _0x7g8h9i.CharacterAdded:Wait()local _0x123456=_0xabcdef:WaitForChild("\72\117\109\97\110\111\105\100\82\111\111\116\80\97\114\116")local _0x789abc=game:GetService("\85\115\101\114\73\110\112\117\116\83\101\114\118\105\99\101")local _0xdef123=game:GetService("\84\119\101\101\110\83\101\114\118\105\99\101")local _0x456789,_0x987654;_0x789abc.InputBegan:Connect(function(_0xaaa111,_0xbbb222)if _0xbbb222 then return end;if _0xaaa111.KeyCode==_0x1a2b3c["\107\101\121\49"]then _0x1a2b3c["\101\110\98"]=not _0x1a2b3c["\101\110\98"]if _0x456789 then _0x456789()end elseif _0xaaa111.KeyCode==_0x1a2b3c["\107\101\121\50"]and _G.FlingUI then _G.FlingUI.Enabled=not _G.FlingUI.Enabled end end)local function _0xccc333()if not _0x1a2b3c["\101\110\98"]then return end;_0x123456.Velocity=_0x123456.CFrame.LookVector*_0x1a2b3c["\112\119\114"]*50+Vector3.new(0,_0x1a2b3c["\112\119\114"]*50,0)end;local function _0xddd444(_0xeee555)return _0xeee555.Name=="\76\101\102\116\70\111\111\116"or _0xeee555.Name=="\82\105\103\104\116\70\111\111\116"or _0xeee555.Name=="\76\101\102\116\32\76\101\103"or _0xeee555.Name=="\82\105\103\104\116\32\76\101\103"end;for _0xfff666,_0x111aaa in ipairs(_0xabcdef:GetChildren())do if _0x111aaa:IsA("\66\97\115\101\80\97\114\116")and _0xddd444(_0x111aaa)then _0x111aaa.Touched:Connect(function(_0x222bbb)if _0x1a2b3c["\101\110\98"]and _0x222bbb and _0x222bbb.Name=="\72\101\97\100"then local _0x333ccc=_0x4d5e6f:GetPlayerFromCharacter(_0x222bbb.Parent)if _0x333ccc and _0x333ccc~=_0x7g8h9i then _0xccc333()end end end)end end;local _0x444ddd={}local function _0x555eee()for _0x666fff,_0x777ggg in ipairs(_0x4d5e6f:GetPlayers())do if _0x777ggg~=_0x7g8h9i and _0x777ggg.Character then local _0x888hhh=_0x777ggg.Character:FindFirstChild("\72\101\97\100")if _0x888hhh then if not _0x444ddd[_0x888hhh]then _0x444ddd[_0x888hhh]={Size=_0x888hhh.Size,Transparency=_0x888hhh.Transparency}end;if _0x1a2b3c["\104\115\101"]then _0x888hhh.Size=Vector3.new(_0x1a2b3c["\104\115\122"],_0x444ddd[_0x888hhh].Size.Y,_0x1a2b3c["\104\115\122"])else _0x888hhh.Size=_0x444ddd[_0x888hhh].Size end;if _0x1a2b3c["\104\115\101"]and _0x1a2b3c["\104\116\101"]then _0x888hhh.Transparency=_0x1a2b3c["\104\116\114"]else _0x888hhh.Transparency=_0x444ddd[_0x888hhh].Transparency end;_0x888hhh.Massless=true end end end end;_0x4d5e6f.PlayerAdded:Connect(function(_0x999iii)_0x999iii.CharacterAdded:Connect(_0x555eee)end)local _0xaaajjj=Instance.new("\83\99\114\101\101\110\71\117\105",_0x7g8h9i.PlayerGui)_0xaaajjj.Name="\70\108\105\110\103\85\73"_0xaaajjj.ResetOnSpawn=false;_0xaaajjj.ZIndexBehavior=Enum.ZIndexBehavior.Sibling;_G.FlingUI=_0xaaajjj;local _0xbbbkkk=Instance.new("\70\114\97\109\101",_0xaaajjj)_0xbbbkkk.Size=UDim2.fromScale(0.15,0.28)+UDim2.fromOffset(8,8)_0xbbbkkk.AnchorPoint=Vector2.new(0.5,0.5)_0xbbbkkk.Position=UDim2.fromScale(0.5,0.5)_0xbbbkkk.BackgroundColor3=Color3.fromRGB(130,50,220)_0xbbbkkk.BackgroundTransparency=0.9;_0xbbbkkk.BorderSizePixel=0;Instance.new("\85\73\67\111\114\110\101\114",_0xbbbkkk).CornerRadius=UDim.new(0,16)local _0xcccllll=TweenInfo.new(1.5,Enum.EasingStyle.Sine,Enum.EasingDirection.InOut,-1,true)_0xdef123:Create(_0xbbbkkk,_0xcccllll,{BackgroundTransparency=0.85}):Play()local _0xdddmmm=Instance.new("\70\114\97\109\101",_0xaaajjj)_0xdddmmm.Size=UDim2.fromScale(0.15,0.28)_0xdddmmm.AnchorPoint=Vector2.new(0.5,0.5)_0xdddmmm.Position=UDim2.fromScale(0.5,0.5)_0xdddmmm.BackgroundColor3=Color3.fromRGB(25,25,30)_0xdddmmm.BackgroundTransparency=0;_0xdddmmm.BorderSizePixel=0;Instance.new("\85\73\67\111\114\110\101\114",_0xdddmmm).CornerRadius=UDim.new(0,16)_0xdddmmm.ZIndex=_0xbbbkkk.ZIndex+1;local _0xeeennn=false;local _0xfffoooo,_0x111pppp,_0x222qqqq;local function _0x333rrrr(_0x444ssss)local _0x555tttt=_0x444ssss.Position-_0x111pppp;_0xdddmmm.Position=UDim2.new(0,_0x222qqqq.X+_0x555tttt.X,0,_0x222qqqq.Y+_0x555tttt.Y)end;_0xdddmmm.InputBegan:Connect(function(_0x666uuuu)if _0x666uuuu.UserInputType==Enum.UserInputType.MouseButton1 then _0xeeennn=true;_0x111pppp=_0x666uuuu.Position;_0x222qqqq=_0xdddmmm.Position;_0x666uuuu.Changed:Connect(function()if _0x666uuuu.UserInputState==Enum.UserInputState.End then _0xeeennn=false end end)end end)_0xdddmmm.InputChanged:Connect(function(_0x777vvvv)if _0x777vvvv.UserInputType==Enum.UserInputType.MouseMovement then _0xfffoooo=_0x777vvvv end end)_0x789abc.InputChanged:Connect(function(_0x888wwww)if _0x888wwww==_0xfffoooo and _0xeeennn then _0x333rrrr(_0x888wwww)end end)local _0x999xxxx=Instance.new("\85\73\83\116\114\111\107\101",_0xdddmmm)_0x999xxxx.Color=Color3.fromRGB(0,0,0)_0x999xxxx.Thickness=2;_0x999xxxx.Transparency=0.5;local function _0xaaayyyy(_0xbbbzzzz,_0xccc1111)local _0xddd2222=Instance.new("\84\101\120\116\76\97\98\101\108",_0xdddmmm)_0xddd2222.Position=UDim2.fromScale(0.05,_0xccc1111)_0xddd2222.Size=UDim2.fromScale(0.9,0.05)_0xddd2222.Text=_0xbbbzzzz;_0xddd2222.TextScaled=true;_0xddd2222.Font=Enum.Font.GothamBold;_0xddd2222.TextColor3=Color3.fromRGB(230,220,255)_0xddd2222.BackgroundTransparency=1;return _0xddd2222 end;local function _0xeee3333(_0xfff4444,_0x1115555,_0x2226666,_0x3337777)local _0x4448888=Instance.new("\70\114\97\109\101",_0xdddmmm)_0x4448888.Position=UDim2.fromScale(0.08,_0xfff4444)_0x4448888.Size=UDim2.fromScale(0.84,0.045)_0x4448888.BackgroundColor3=Color3.fromRGB(40,40,50)_0x4448888.BorderSizePixel=0;Instance.new("\85\73\67\111\114\110\101\114",_0x4448888).CornerRadius=UDim.new(1,0)local _0x5559999=Instance.new("\70\114\97\109\101",_0x4448888)_0x5559999.BackgroundColor3=Color3.fromRGB(180,80,255)_0x5559999.BorderSizePixel=0;Instance.new("\85\73\67\111\114\110\101\114",_0x5559999).CornerRadius=UDim.new(1,0)local _0x666aaaa=Instance.new("\70\114\97\109\101",_0x4448888)_0x666aaaa.Size=UDim2.fromScale(0.04,1)_0x666aaaa.AnchorPoint=Vector2.new(0.5,0)_0x666aaaa.BackgroundColor3=Color3.fromRGB(230,220,255)_0x666aaaa.BorderSizePixel=0;Instance.new("\85\73\67\111\114\110\101\114",_0x666aaaa).CornerRadius=UDim.new(1,0)local _0x777bbbb=Instance.new("\84\101\120\116\76\97\98\101\108",_0xdddmmm)_0x777bbbb.Position=UDim2.fromScale(0.88,_0xfff4444-0.005)_0x777bbbb.Size=UDim2.fromScale(0.12,0.045)_0x777bbbb.Text=tostring(_0x3337777())_0x777bbbb.Font=Enum.Font.Gotham;_0x777bbbb.TextColor3=Color3.fromRGB(230,220,255)_0x777bbbb.BackgroundTransparency=1;_0x777bbbb.TextScaled=true;local _0x888cccc=false;local _0x999dddd=TweenInfo.new(0.15,Enum.EasingStyle.Quad,Enum.EasingDirection.Out)local function _0xaaaeeee(_0xbbbffff)local _0xcccgggg=math.clamp((_0xbbbffff-_0x4448888.AbsolutePosition.X)/_0x4448888.AbsoluteSize.X,0,1)local _0xdddhhhh=UDim2.fromScale(_0xcccgggg,1)_0xdef123:Create(_0x5559999,_0x999dddd,{Size=_0xdddhhhh}):Play()_0xdef123:Create(_0x666aaaa,_0x999dddd,{Position=UDim2.fromScale(_0xcccgggg,0)}):Play()_0x3337777(_0x1115555+(_0x2226666-_0x1115555)*_0xcccgggg)_0x777bbbb.Text=string.format("\37\46\50\102",_0x3337777())end;_0x4448888.InputBegan:Connect(function(_0xeeeiiii)if _0xeeeiiii.UserInputType==Enum.UserInputType.MouseButton1 then _0x888cccc=true;_0xaaaeeee(_0xeeeiiii.Position.X)end end)_0x789abc.InputChanged:Connect(function(_0xfffjjjj)if _0x888cccc and _0xfffjjjj.UserInputType==Enum.UserInputType.MouseMovement then _0xaaaeeee(_0xfffjjjj.Position.X)end end)_0x789abc.InputEnded:Connect(function(_0x111kkkk)if _0x111kkkk.UserInputType==Enum.UserInputType.MouseButton1 then _0x888cccc=false end end)_0x5559999.Size=UDim2.fromScale((_0x3337777()-_0x1115555)/(_0x2226666-_0x1115555),1)_0x666aaaa.Position=UDim2.fromScale((_0x3337777()-_0x1115555)/(_0x2226666-_0x1115555),0)end;local _0x222llll=Instance.new("\84\101\120\116\66\117\116\116\111\110",_0xdddmmm)_0x222llll.Position=UDim2.fromScale(0.12,0.02)_0x222llll.Size=UDim2.fromScale(0.76,0.06)_0x222llll.Font=Enum.Font.GothamBold;_0x222llll.TextScaled=true;_0x222llll.TextColor3=Color3.fromRGB(230,220,255)_0x222llll.BorderSizePixel=0;Instance.new("\85\73\67\111\114\110\101\114",_0x222llll).CornerRadius=UDim.new(0,12)local _0x333mmmm=TweenInfo.new(0.15,Enum.EasingStyle.Quad,Enum.EasingDirection.Out)_0x222llll.MouseEnter:Connect(function()_0xdef123:Create(_0x222llll,_0x333mmmm,{BackgroundTransparency=0.05}):Play()end)_0x222llll.MouseLeave:Connect(function()_0xdef123:Create(_0x222llll,_0x333mmmm,{BackgroundTransparency=0}):Play()end)_0x456789=function()_0x222llll.Text="\70\108\105\110\103\58\32"..(_0x1a2b3c["\101\110\98"]and"\79\78"or"\79\70\70")_0x222llll.BackgroundColor3=_0x1a2b3c["\101\110\98"]and Color3.fromRGB(130,50,220)or Color3.fromRGB(90,0,120)end;_0x222llll.MouseButton1Click:Connect(function()_0x1a2b3c["\101\110\98"]=not _0x1a2b3c["\101\110\98"]_0x456789()end)_0x456789()_0xaaayyyy("\70\108\105\110\103\32\80\111\119\101\114",0.1)_0xeee3333(0.16,_0x1a2b3c["\109\110\112"],_0x1a2b3c["\109\120\112"],function(_0x444nnnn)if _0x444nnnn then _0x1a2b3c["\112\119\114"]=math.floor(_0x444nnnn)end;return _0x1a2b3c["\112\119\114"]end)_0xaaayyyy("\72\101\97\100\32\87\105\100\116\104",0.28)_0xeee3333(0.34,_0x1a2b3c["\109\110\104"],_0x1a2b3c["\109\120\104"],function(_0x555oooo)if _0x555oooo then _0x1a2b3c["\104\115\122"]=math.floor(_0x555oooo*10)/10;_0x555eee()end;return _0x1a2b3c["\104\115\122"]end)_0xaaayyyy("\72\101\97\100\32\84\114\97\110\115\112\97\114\101\110\99\121",0.46)_0xeee3333(0.52,_0x1a2b3c["\109\110\116"],_0x1a2b3c["\109\120\116"],function(_0x666pppp)if _0x666pppp then _0x1a2b3c["\104\116\114"]=math.floor(_0x666pppp*100)/100;_0x555eee()end;return _0x1a2b3c["\104\116\114"]end)local function _0x777qqqq(_0x888rrrr,_0x999ssss,_0xaaatttt)local _0xbbbuuuu=Instance.new("\84\101\120\116\66\117\116\116\111\110",_0xdddmmm)_0xbbbuuuu.Position=UDim2.fromScale(0.12,_0x999ssss)_0xbbbuuuu.Size=UDim2.fromScale(0.76,0.055)_0xbbbuuuu.Font=Enum.Font.GothamBold;_0xbbbuuuu.TextScaled=true;_0xbbbuuuu.TextColor3=Color3.fromRGB(230,220,255)_0xbbbuuuu.BorderSizePixel=0;Instance.new("\85\73\67\111\114\110\101\114",_0xbbbuuuu).CornerRadius=UDim.new(0,12)_0xbbbuuuu.MouseEnter:Connect(function()_0xdef123:Create(_0xbbbuuuu,_0x333mmmm,{BackgroundTransparency=0.05}):Play()end)_0xbbbuuuu.MouseLeave:Connect(function()_0xdef123:Create(_0xbbbuuuu,_0x333mmmm,{BackgroundTransparency=0}):Play()end)local function _0xcccvvvv()local _0xdddwwww=_0xaaatttt()_0xbbbuuuu.Text=_0x888rrrr.."\58\32"..(_0xdddwwww and"\79\78"or"\79\70\70")_0xbbbuuuu.BackgroundColor3=_0xdddwwww and Color3.fromRGB(130,50,220)or Color3.fromRGB(90,0,120)end;_0xbbbuuuu.MouseButton1Click:Connect(function()_0xaaatttt(true)_0xcccvvvv()_0x555eee()end)_0xcccvvvv()return _0xcccvvvv end;_0x987654=_0x777qqqq("\72\101\97\100\32\83\105\122\101",0.64,function(_0xeeexxxx)if _0xeeexxxx then _0x1a2b3c["\104\115\101"]=not _0x1a2b3c["\104\115\101"]if not _0x1a2b3c["\104\115\101"]then _0x1a2b3c["\104\116\101"]=false end end;return _0x1a2b3c["\104\115\101"]end)_0x777qqqq("\84\114\97\110\115\112\97\114\101\110\99\121",0.72,function(_0xfffyyyy)if _0xfffyyyy and _0x1a2b3c["\104\115\101"]then _0x1a2b3c["\104\116\101"]=not _0x1a2b3c["\104\116\101"]end;return _0x1a2b3c["\104\116\101"]end)_0xaaayyyy("\70\32\61\32\84\111\103\103\108\101\32\124\32\82\105\103\104\116\83\104\105\102\116\32\61\32\77\101\110\117",0.8)_0xaaayyyy("\77\97\100\101\32\98\121\32\115\112\108\111\111\103\101",0.85)_0x555eee()
+local _0x1a2b3c={["\107\101\121\49"]=Enum.KeyCode.F,["\107\101\121\50"]=Enum.KeyCode.RightShift,["\112\119\114"]=7,["\109\110\112"]=1,["\109\120\112"]=20,["\104\115\122"]=2,["\109\110\104"]=1,["\109\120\104"]=6,["\104\116\114"]=0,["\109\110\116"]=0,["\109\120\116"]=1,["\101\110\98"]=true,["\104\115\101"]=true,["\104\116\101"]=true,
+-- Pull Vector Settings
+smoothPullEnabled=false,
+magnetSmoothness=0.03,
+-- Jump Power Settings
+jumpPowerEnabled=false,
+jumpPower=52,
+minJump=10,
+maxJump=200}
+
+local _0x4d5e6f=game:GetService("\80\108\97\121\101\114\115")
+local _0x7g8h9i=_0x4d5e6f.LocalPlayer
+local _0xabcdef=_0x7g8h9i.Character or _0x7g8h9i.CharacterAdded:Wait()
+local _0x123456=_0xabcdef:WaitForChild("\72\117\109\97\110\111\105\100\82\111\111\116\80\97\114\116")
+local _0x789abc=game:GetService("\85\115\101\114\73\110\112\117\116\83\101\114\118\105\99\101")
+local _0xdef123=game:GetService("\84\119\101\101\110\83\101\114\118\105\99\101")
+local Workspace=game:GetService("Workspace")
+
+-- Pull Vector Variables
+local isSmoothPulling=false
+local jumpConnection=nil
+local allConnections={}
+
+local _0x456789,_0x987654
+
+-- Get humanoid reference
+local humanoid=_0xabcdef:WaitForChild("Humanoid")
+
+-- Handle character respawn
+_0x7g8h9i.CharacterAdded:Connect(function(char)
+    _0xabcdef = char
+    _0x123456 = char:WaitForChild("HumanoidRootPart")
+    humanoid = char:WaitForChild("Humanoid")
+    
+    -- Stop all features on respawn
+    isSmoothPulling = false
+    _0x1a2b3c["\101\110\98"] = false
+    _0x1a2b3c.smoothPullEnabled = false
+    _0x1a2b3c.jumpPowerEnabled = false
+    
+    if jumpConnection then
+        jumpConnection:Disconnect()
+        jumpConnection = nil
+    end
+end)
+
+-- ==================== PULL VECTOR FUNCTIONS ====================
+local function getFootball()
+    local isParkMatch = Workspace:FindFirstChild("ParkMatchMap") ~= nil
+    
+    if isParkMatch then
+        local parkMatchFootball = Workspace:FindFirstChild("ParkMatchMap")
+        if parkMatchFootball and parkMatchFootball:FindFirstChild("Replicated") then
+            parkMatchFootball = parkMatchFootball.Replicated:FindFirstChild("Fields")
+            if parkMatchFootball and parkMatchFootball:FindFirstChild("MatchField") then
+                parkMatchFootball = parkMatchFootball.MatchField:FindFirstChild("Replicated")
+                if parkMatchFootball then
+                    local football = parkMatchFootball:FindFirstChild("Football")
+                    if football and football:IsA("BasePart") then return football end
+                end
+            end
+        end
+    end
+    
+    for _, otherPlayer in ipairs(_0x4d5e6f:GetPlayers()) do
+        if otherPlayer.Character then
+            local ball = otherPlayer.Character:FindFirstChild("Football")
+            if ball and ball:IsA("BasePart") then return ball end
+        end
+    end
+    
+    local gamesFolder = Workspace:FindFirstChild("Games")
+    if gamesFolder then
+        for _, gameInstance in ipairs(gamesFolder:GetChildren()) do
+            local replicatedFolder = gameInstance:FindFirstChild("Replicated")
+            if replicatedFolder then
+                local kickoffFootball = replicatedFolder:FindFirstChild("918f5408-d86a-4fb8-a88c-5cab57410acf")
+                if kickoffFootball and kickoffFootball:IsA("BasePart") then return kickoffFootball end
+                for _, item in ipairs(replicatedFolder:GetChildren()) do
+                    if item:IsA("BasePart") and item.Name == "Football" then return item end
+                end
+            end
+        end
+    end
+    
+    return nil
+end
+
+local function smoothTeleportToBall()
+    local ball = getFootball()
+    if ball and _0x123456 then
+        local ballVelocity = ball.Velocity
+        local ballSpeed = ballVelocity.Magnitude
+        local offset = (ballSpeed > 0) and (ballVelocity.Unit * 15) or Vector3.new(0, 0, 0)
+        local targetPosition = ball.Position + offset + Vector3.new(0, 3, 0)
+        local lookDirection = (ball.Position - _0x123456.Position).Unit
+        _0x123456.CFrame = _0x123456.CFrame:Lerp(CFrame.new(targetPosition, targetPosition + lookDirection), _0x1a2b3c.magnetSmoothness)
+    end
+end
+
+-- Jump Power Function
+local function setupJumpPower()
+    if _0x1a2b3c.jumpPowerEnabled then
+        if jumpConnection then jumpConnection:Disconnect() end
+        jumpConnection = humanoid.Jumping:Connect(function()
+            if _0x1a2b3c.jumpPowerEnabled and _0x123456 then
+                local jumpVelocity = Vector3.new(0, _0x1a2b3c.jumpPower, 0)
+                _0x123456.Velocity = Vector3.new(_0x123456.Velocity.X, 0, _0x123456.Velocity.Z) + jumpVelocity
+            end
+        end)
+        table.insert(allConnections, jumpConnection)
+    else
+        if jumpConnection then 
+            jumpConnection:Disconnect() 
+            jumpConnection = nil
+        end
+    end
+end
+
+_0x789abc.InputBegan:Connect(function(_0xaaa111,_0xbbb222)
+    if _0xbbb222 then return end
+    
+    if _0xaaa111.KeyCode==_0x1a2b3c["\107\101\121\49"]then 
+        _0x1a2b3c["\101\110\98"]=not _0x1a2b3c["\101\110\98"]
+        if _0x456789 then _0x456789()end 
+    elseif _0xaaa111.KeyCode==_0x1a2b3c["\107\101\121\50"]and _G.FlingUI then 
+        _G.FlingUI.Enabled=not _G.FlingUI.Enabled 
+    end
+    
+    -- Pull Vector Input
+    if _0xaaa111.UserInputType == Enum.UserInputType.MouseButton1 then
+        if _0x1a2b3c.smoothPullEnabled then
+            isSmoothPulling = true
+        end
+    end
+end)
+
+_0x789abc.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        isSmoothPulling = false
+    end
+end)
+
+-- Main pull vector loop
+local pullVectorLoop = game:GetService("RunService").Heartbeat:Connect(function()
+    if isSmoothPulling and _0x1a2b3c.smoothPullEnabled then
+        smoothTeleportToBall()
+    end
+end)
+table.insert(allConnections, pullVectorLoop)
+
+local function _0xccc333()
+    if not _0x1a2b3c["\101\110\98"]then return end
+    _0x123456.Velocity=_0x123456.CFrame.LookVector*_0x1a2b3c["\112\119\114"]*50+Vector3.new(0,_0x1a2b3c["\112\119\114"]*50,0)
+end
+
+local function _0xddd444(_0xeee555)
+    return _0xeee555.Name=="\76\101\102\116\70\111\111\116"or _0xeee555.Name=="\82\105\103\104\116\70\111\111\116"or _0xeee555.Name=="\76\101\102\116\32\76\101\103"or _0xeee555.Name=="\82\105\103\104\116\32\76\101\103"
+end
+
+for _0xfff666,_0x111aaa in ipairs(_0xabcdef:GetChildren())do 
+    if _0x111aaa:IsA("\66\97\115\101\80\97\114\116")and _0xddd444(_0x111aaa)then 
+        local conn = _0x111aaa.Touched:Connect(function(_0x222bbb)
+            if _0x1a2b3c["\101\110\98"]and _0x222bbb and _0x222bbb.Name=="\72\101\97\100"then 
+                local _0x333ccc=_0x4d5e6f:GetPlayerFromCharacter(_0x222bbb.Parent)
+                if _0x333ccc and _0x333ccc~=_0x7g8h9i then 
+                    _0xccc333()
+                end 
+            end 
+        end)
+        table.insert(allConnections, conn)
+    end 
+end
+
+local _0x444ddd={}
+local function _0x555eee()
+    for _0x666fff,_0x777ggg in ipairs(_0x4d5e6f:GetPlayers())do 
+        if _0x777ggg~=_0x7g8h9i and _0x777ggg.Character then 
+            local _0x888hhh=_0x777ggg.Character:FindFirstChild("\72\101\97\100")
+            if _0x888hhh then 
+                if not _0x444ddd[_0x888hhh]then 
+                    _0x444ddd[_0x888hhh]={Size=_0x888hhh.Size,Transparency=_0x888hhh.Transparency}
+                end
+                if _0x1a2b3c["\104\115\101"]then 
+                    _0x888hhh.Size=Vector3.new(_0x1a2b3c["\104\115\122"],_0x444ddd[_0x888hhh].Size.Y,_0x1a2b3c["\104\115\122"])
+                else 
+                    _0x888hhh.Size=_0x444ddd[_0x888hhh].Size 
+                end
+                if _0x1a2b3c["\104\115\101"]and _0x1a2b3c["\104\116\101"]then 
+                    _0x888hhh.Transparency=_0x1a2b3c["\104\116\114"]
+                else 
+                    _0x888hhh.Transparency=_0x444ddd[_0x888hhh].Transparency 
+                end
+                _0x888hhh.Massless=true 
+            end 
+        end 
+    end 
+end
+
+_0x4d5e6f.PlayerAdded:Connect(function(_0x999iii)
+    local conn = _0x999iii.CharacterAdded:Connect(_0x555eee)
+    table.insert(allConnections, conn)
+end)
+
+-- Head size update loop
+local headSizeLoop = game:GetService("RunService").Heartbeat:Connect(function()
+    _0x555eee()
+end)
+table.insert(allConnections, headSizeLoop)
+
+local _0xaaajjj=Instance.new("\83\99\114\101\101\110\71\117\105",_0x7g8h9i.PlayerGui)
+_0xaaajjj.Name="\70\108\105\110\103\85\73"
+_0xaaajjj.ResetOnSpawn=false
+_0xaaajjj.ZIndexBehavior=Enum.ZIndexBehavior.Sibling
+_G.FlingUI=_0xaaajjj
+
+local _0xbbbkkk=Instance.new("\70\114\97\109\101",_0xaaajjj)
+_0xbbbkkk.Size=UDim2.fromScale(0.20,0.70)+UDim2.fromOffset(10,10)
+_0xbbbkkk.AnchorPoint=Vector2.new(0.5,0.5)
+_0xbbbkkk.Position=UDim2.fromScale(0.5,0.5)
+_0xbbbkkk.BackgroundColor3=Color3.fromRGB(130,50,220)
+_0xbbbkkk.BackgroundTransparency=0.9
+_0xbbbkkk.BorderSizePixel=0
+Instance.new("\85\73\67\111\114\110\101\114",_0xbbbkkk).CornerRadius=UDim.new(0,16)
+
+local _0xcccllll=TweenInfo.new(1.5,Enum.EasingStyle.Sine,Enum.EasingDirection.InOut,-1,true)
+_0xdef123:Create(_0xbbbkkk,_0xcccllll,{BackgroundTransparency=0.85}):Play()
+
+local _0xdddmmm=Instance.new("\70\114\97\109\101",_0xaaajjj)
+_0xdddmmm.Size=UDim2.fromScale(0.20,0.70)
+_0xdddmmm.AnchorPoint=Vector2.new(0.5,0.5)
+_0xdddmmm.Position=UDim2.fromScale(0.5,0.5)
+_0xdddmmm.BackgroundColor3=Color3.fromRGB(25,25,30)
+_0xdddmmm.BackgroundTransparency=0
+_0xdddmmm.BorderSizePixel=0
+Instance.new("\85\73\67\111\114\110\101\114",_0xdddmmm).CornerRadius=UDim.new(0,16)
+_0xdddmmm.ZIndex=_0xbbbkkk.ZIndex+1
+
+local _0xeeennn=false
+local _0xfffoooo,_0x111pppp,_0x222qqqq
+
+local function _0x333rrrr(_0x444ssss)
+    local _0x555tttt=_0x444ssss.Position-_0x111pppp
+    _0xdddmmm.Position=UDim2.new(0,_0x222qqqq.X+_0x555tttt.X,0,_0x222qqqq.Y+_0x555tttt.Y)
+end
+
+_0xdddmmm.InputBegan:Connect(function(_0x666uuuu)
+    if _0x666uuuu.UserInputType==Enum.UserInputType.MouseButton1 then 
+        _0xeeennn=true
+        _0x111pppp=_0x666uuuu.Position
+        _0x222qqqq=_0xdddmmm.Position
+        _0x666uuuu.Changed:Connect(function()
+            if _0x666uuuu.UserInputState==Enum.UserInputState.End then 
+                _0xeeennn=false 
+            end 
+        end)
+    end 
+end)
+
+_0xdddmmm.InputChanged:Connect(function(_0x777vvvv)
+    if _0x777vvvv.UserInputType==Enum.UserInputType.MouseMovement then 
+        _0xfffoooo=_0x777vvvv 
+    end 
+end)
+
+_0x789abc.InputChanged:Connect(function(_0x888wwww)
+    if _0x888wwww==_0xfffoooo and _0xeeennn then 
+        _0x333rrrr(_0x888wwww)
+    end 
+end)
+
+local _0x999xxxx=Instance.new("\85\73\83\116\114\111\107\101",_0xdddmmm)
+_0x999xxxx.Color=Color3.fromRGB(0,0,0)
+_0x999xxxx.Thickness=2
+_0x999xxxx.Transparency=0.5
+
+-- Close Button
+local closeBtn=Instance.new("TextButton",_0xdddmmm)
+closeBtn.Position=UDim2.fromScale(0.88,0.02)
+closeBtn.Size=UDim2.fromScale(0.1,0.04)
+closeBtn.Text="X"
+closeBtn.Font=Enum.Font.GothamBold
+closeBtn.TextScaled=true
+closeBtn.TextColor3=Color3.fromRGB(255,100,100)
+closeBtn.BackgroundColor3=Color3.fromRGB(40,10,10)
+closeBtn.BorderSizePixel=0
+Instance.new("UICorner",closeBtn).CornerRadius=UDim.new(0,8)
+
+closeBtn.MouseEnter:Connect(function()
+    _0xdef123:Create(closeBtn,TweenInfo.new(0.15),{BackgroundColor3=Color3.fromRGB(255,50,50)}):Play()
+end)
+closeBtn.MouseLeave:Connect(function()
+    _0xdef123:Create(closeBtn,TweenInfo.new(0.15),{BackgroundColor3=Color3.fromRGB(40,10,10)}):Play()
+end)
+
+closeBtn.MouseButton1Click:Connect(function()
+    -- Stop all active features
+    isSmoothPulling=false
+    _0x1a2b3c["\101\110\98"]=false
+    _0x1a2b3c.smoothPullEnabled=false
+    _0x1a2b3c.jumpPowerEnabled=false
+    _0x1a2b3c["\104\115\101"]=false
+    
+    -- Disconnect jump connection
+    if jumpConnection then
+        jumpConnection:Disconnect()
+        jumpConnection=nil
+    end
+    
+    -- Disconnect all tracked connections
+    for _, conn in ipairs(allConnections) do
+        if conn and conn.Connected then
+            conn:Disconnect()
+        end
+    end
+    allConnections = {}
+    
+    -- Reset all player heads
+    for _,player in ipairs(_0x4d5e6f:GetPlayers())do
+        if player~=_0x7g8h9i and player.Character then
+            local head=player.Character:FindFirstChild("\72\101\97\100")
+            if head and _0x444ddd[head]then
+                head.Size=_0x444ddd[head].Size
+                head.Transparency=_0x444ddd[head].Transparency
+                head.CanCollide=false
+            end
+        end
+    end
+    
+    -- Wait a moment for cleanup to complete
+    wait(0.1)
+    
+    -- Destroy UI
+    if _0xaaajjj then
+        _0xaaajjj:Destroy()
+    end
+    _G.FlingUI=nil
+    
+    print("Script fully stopped and cleaned up")
+end)
+
+local function _0xaaayyyy(_0xbbbzzzz,_0xccc1111)
+    local _0xddd2222=Instance.new("\84\101\120\116\76\97\98\101\108",_0xdddmmm)
+    _0xddd2222.Position=UDim2.fromScale(0.05,_0xccc1111)
+    _0xddd2222.Size=UDim2.fromScale(0.9,0.028)
+    _0xddd2222.Text=_0xbbbzzzz
+    _0xddd2222.TextScaled=true
+    _0xddd2222.Font=Enum.Font.GothamBold
+    _0xddd2222.TextColor3=Color3.fromRGB(230,220,255)
+    _0xddd2222.BackgroundTransparency=1
+    return _0xddd2222 
+end
+
+local function _0xeee3333(_0xfff4444,_0x1115555,_0x2226666,_0x3337777)
+    local _0x4448888=Instance.new("\70\114\97\109\101",_0xdddmmm)
+    _0x4448888.Position=UDim2.fromScale(0.08,_0xfff4444)
+    _0x4448888.Size=UDim2.fromScale(0.84,0.028)
+    _0x4448888.BackgroundColor3=Color3.fromRGB(40,40,50)
+    _0x4448888.BorderSizePixel=0
+    Instance.new("\85\73\67\111\114\110\101\114",_0x4448888).CornerRadius=UDim.new(1,0)
+    
+    local _0x5559999=Instance.new("\70\114\97\109\101",_0x4448888)
+    _0x5559999.BackgroundColor3=Color3.fromRGB(180,80,255)
+    _0x5559999.BorderSizePixel=0
+    Instance.new("\85\73\67\111\114\110\101\114",_0x5559999).CornerRadius=UDim.new(1,0)
+    
+    local _0x666aaaa=Instance.new("\70\114\97\109\101",_0x4448888)
+    _0x666aaaa.Size=UDim2.fromScale(0.04,1)
+    _0x666aaaa.AnchorPoint=Vector2.new(0.5,0)
+    _0x666aaaa.BackgroundColor3=Color3.fromRGB(230,220,255)
+    _0x666aaaa.BorderSizePixel=0
+    Instance.new("\85\73\67\111\114\110\101\114",_0x666aaaa).CornerRadius=UDim.new(1,0)
+    
+    local _0x777bbbb=Instance.new("\84\101\120\116\76\97\98\101\108",_0xdddmmm)
+    _0x777bbbb.Position=UDim2.fromScale(0.88,_0xfff4444-0.003)
+    _0x777bbbb.Size=UDim2.fromScale(0.12,0.028)
+    _0x777bbbb.Text=tostring(_0x3337777())
+    _0x777bbbb.Font=Enum.Font.Gotham
+    _0x777bbbb.TextColor3=Color3.fromRGB(230,220,255)
+    _0x777bbbb.BackgroundTransparency=1
+    _0x777bbbb.TextScaled=true
+    
+    local _0x888cccc=false
+    local _0x999dddd=TweenInfo.new(0.15,Enum.EasingStyle.Quad,Enum.EasingDirection.Out)
+    
+    local function _0xaaaeeee(_0xbbbffff)
+        local _0xcccgggg=math.clamp((_0xbbbffff-_0x4448888.AbsolutePosition.X)/_0x4448888.AbsoluteSize.X,0,1)
+        local _0xdddhhhh=UDim2.fromScale(_0xcccgggg,1)
+        _0xdef123:Create(_0x5559999,_0x999dddd,{Size=_0xdddhhhh}):Play()
+        _0xdef123:Create(_0x666aaaa,_0x999dddd,{Position=UDim2.fromScale(_0xcccgggg,0)}):Play()
+        _0x3337777(_0x1115555+(_0x2226666-_0x1115555)*_0xcccgggg)
+        _0x777bbbb.Text=string.format("\37\46\50\102",_0x3337777())
+    end
+    
+    _0x4448888.InputBegan:Connect(function(_0xeeeiiii)
+        if _0xeeeiiii.UserInputType==Enum.UserInputType.MouseButton1 then 
+            _0x888cccc=true
+            _0xaaaeeee(_0xeeeiiii.Position.X)
+        end 
+    end)
+    
+    _0x789abc.InputChanged:Connect(function(_0xfffjjjj)
+        if _0x888cccc and _0xfffjjjj.UserInputType==Enum.UserInputType.MouseMovement then 
+            _0xaaaeeee(_0xfffjjjj.Position.X)
+        end 
+    end)
+    
+    _0x789abc.InputEnded:Connect(function(_0x111kkkk)
+        if _0x111kkkk.UserInputType==Enum.UserInputType.MouseButton1 then 
+            _0x888cccc=false 
+        end 
+    end)
+    
+    _0x5559999.Size=UDim2.fromScale((_0x3337777()-_0x1115555)/(_0x2226666-_0x1115555),1)
+    _0x666aaaa.Position=UDim2.fromScale((_0x3337777()-_0x1115555)/(_0x2226666-_0x1115555),0)
+end
+
+local _0x222llll=Instance.new("\84\101\120\116\66\117\116\116\111\110",_0xdddmmm)
+_0x222llll.Position=UDim2.fromScale(0.12,0.02)
+_0x222llll.Size=UDim2.fromScale(0.76,0.04)
+_0x222llll.Font=Enum.Font.GothamBold
+_0x222llll.TextScaled=true
+_0x222llll.TextColor3=Color3.fromRGB(230,220,255)
+_0x222llll.BorderSizePixel=0
+Instance.new("\85\73\67\111\114\110\101\114",_0x222llll).CornerRadius=UDim.new(0,12)
+
+local _0x333mmmm=TweenInfo.new(0.15,Enum.EasingStyle.Quad,Enum.EasingDirection.Out)
+_0x222llll.MouseEnter:Connect(function()
+    _0xdef123:Create(_0x222llll,_0x333mmmm,{BackgroundTransparency=0.05}):Play()
+end)
+_0x222llll.MouseLeave:Connect(function()
+    _0xdef123:Create(_0x222llll,_0x333mmmm,{BackgroundTransparency=0}):Play()
+end)
+
+_0x456789=function()
+    _0x222llll.Text="\70\108\105\110\103\58\32"..(_0x1a2b3c["\101\110\98"]and"\79\78"or"\79\70\70")
+    _0x222llll.BackgroundColor3=_0x1a2b3c["\101\110\98"]and Color3.fromRGB(130,50,220)or Color3.fromRGB(90,0,120)
+end
+
+_0x222llll.MouseButton1Click:Connect(function()
+    _0x1a2b3c["\101\110\98"]=not _0x1a2b3c["\101\110\98"]
+    _0x456789()
+end)
+
+_0x456789()
+
+_0xaaayyyy("\70\108\105\110\103\32\80\111\119\101\114",0.08)
+_0xeee3333(0.12,_0x1a2b3c["\109\110\112"],_0x1a2b3c["\109\120\112"],function(_0x444nnnn)
+    if _0x444nnnn then 
+        _0x1a2b3c["\112\119\114"]=math.floor(_0x444nnnn)
+    end
+    return _0x1a2b3c["\112\119\114"]
+end)
+
+_0xaaayyyy("\72\101\97\100\32\87\105\100\116\104",0.19)
+_0xeee3333(0.23,_0x1a2b3c["\109\110\104"],_0x1a2b3c["\109\120\104"],function(_0x555oooo)
+    if _0x555oooo then 
+        _0x1a2b3c["\104\115\122"]=math.floor(_0x555oooo*10)/10
+        _0x555eee()
+    end
+    return _0x1a2b3c["\104\115\122"]
+end)
+
+_0xaaayyyy("\72\101\97\100\32\84\114\97\110\115\112\97\114\101\110\99\121",0.30)
+_0xeee3333(0.34,_0x1a2b3c["\109\110\116"],_0x1a2b3c["\109\120\116"],function(_0x666pppp)
+    if _0x666pppp then 
+        _0x1a2b3c["\104\116\114"]=math.floor(_0x666pppp*100)/100
+        _0x555eee()
+    end
+    return _0x1a2b3c["\104\116\114"]
+end)
+
+local function _0x777qqqq(_0x888rrrr,_0x999ssss,_0xaaatttt)
+    local _0xbbbuuuu=Instance.new("\84\101\120\116\66\117\116\116\111\110",_0xdddmmm)
+    _0xbbbuuuu.Position=UDim2.fromScale(0.12,_0x999ssss)
+    _0xbbbuuuu.Size=UDim2.fromScale(0.76,0.035)
+    _0xbbbuuuu.Font=Enum.Font.GothamBold
+    _0xbbbuuuu.TextScaled=true
+    _0xbbbuuuu.TextColor3=Color3.fromRGB(230,220,255)
+    _0xbbbuuuu.BorderSizePixel=0
+    Instance.new("\85\73\67\111\114\110\101\114",_0xbbbuuuu).CornerRadius=UDim.new(0,12)
+    
+    _0xbbbuuuu.MouseEnter:Connect(function()
+        _0xdef123:Create(_0xbbbuuuu,_0x333mmmm,{BackgroundTransparency=0.05}):Play()
+    end)
+    _0xbbbuuuu.MouseLeave:Connect(function()
+        _0xdef123:Create(_0xbbbuuuu,_0x333mmmm,{BackgroundTransparency=0}):Play()
+    end)
+    
+    local function _0xcccvvvv()
+        local _0xdddwwww=_0xaaatttt()
+        _0xbbbuuuu.Text=_0x888rrrr.."\58\32"..(_0xdddwwww and"\79\78"or"\79\70\70")
+        _0xbbbuuuu.BackgroundColor3=_0xdddwwww and Color3.fromRGB(130,50,220)or Color3.fromRGB(90,0,120)
+    end
+    
+    _0xbbbuuuu.MouseButton1Click:Connect(function()
+        _0xaaatttt(true)
+        _0xcccvvvv()
+        _0x555eee()
+    end)
+    
+    _0xcccvvvv()
+    return _0xcccvvvv 
+end
+
+_0x987654=_0x777qqqq("\72\101\97\100\32\83\105\122\101",0.42,function(_0xeeexxxx)
+    if _0xeeexxxx then 
+        _0x1a2b3c["\104\115\101"]=not _0x1a2b3c["\104\115\101"]
+        if not _0x1a2b3c["\104\115\101"]then 
+            _0x1a2b3c["\104\116\101"]=false 
+        end 
+    end
+    return _0x1a2b3c["\104\115\101"]
+end)
+
+_0x777qqqq("\84\114\97\110\115\112\97\114\101\110\99\121",0.48,function(_0xfffyyyy)
+    if _0xfffyyyy and _0x1a2b3c["\104\115\101"]then 
+        _0x1a2b3c["\104\116\101"]=not _0x1a2b3c["\104\116\101"]
+    end
+    return _0x1a2b3c["\104\116\101"]
+end)
+
+-- ==================== PULL VECTOR UI ====================
+_0xaaayyyy("Legit Pull Vector [M1]",0.55)
+_0x777qqqq("Legit Pull",0.585,function(_0xsmoothpull)
+    if _0xsmoothpull then 
+        _0x1a2b3c.smoothPullEnabled=not _0x1a2b3c.smoothPullEnabled
+    end
+    return _0x1a2b3c.smoothPullEnabled
+end)
+
+_0xaaayyyy("Smoothness",0.64)
+_0xeee3333(0.675,0.01,1.0,function(_0xsmooth)
+    if _0xsmooth then 
+        _0x1a2b3c.magnetSmoothness=math.floor(_0xsmooth*100)/100
+    end
+    return _0x1a2b3c.magnetSmoothness
+end)
+
+-- ==================== JUMP POWER UI ====================
+_0xaaayyyy("Jump Power",0.73)
+_0x777qqqq("Enable Jump",0.765,function(_0xjumpenable)
+    if _0xjumpenable then 
+        _0x1a2b3c.jumpPowerEnabled=not _0x1a2b3c.jumpPowerEnabled
+        setupJumpPower()
+    end
+    return _0x1a2b3c.jumpPowerEnabled
+end)
+
+_0xeee3333(0.805,_0x1a2b3c.minJump,_0x1a2b3c.maxJump,function(_0xjumpval)
+    if _0xjumpval then 
+        _0x1a2b3c.jumpPower=math.floor(_0xjumpval)
+    end
+    return _0x1a2b3c.jumpPower
+end)
+
+_0xaaayyyy("\70\32\61\32\84\111\103\103\108\101\32\124\32\82\105\103\104\116\83\104\105\102\116\32\61\32\77\101\110\117",0.85)
+_0xaaayyyy("\77\97\100\101\32\98\121\32\115\112\108\111\111\103\101",0.88)
+
+_0x555eee()
